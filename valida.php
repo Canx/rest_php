@@ -2,12 +2,12 @@
 
 require 'lib.php';
 
-// cambiar cuando sea web por esto
-// $usuari = $_POST["usuari"];
-// $password = $_POST["password"];
+$usuari = $_POST["usuari"];
+$password = $_POST["password"];
+
+// PARA TEST
 $usuari = 'ruben';
 $password = 'hola';
-
 
 // Devolvemos el resultado
 header("Access-Control-Allow-Origin: *");
