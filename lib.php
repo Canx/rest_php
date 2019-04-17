@@ -1,6 +1,5 @@
 <?PHP
 
-
 // devuelve un token si se ha podido validar y en caso contrario
 // devuelve NULL
 
@@ -43,4 +42,20 @@ function get_departaments() {
 			       "nomcap" => $row["nomcap"]);
     }
     return array("resultat" => true, $departaments);
+}
+
+function get_empleats($iddep) {
+    $db = new SQLite3('empresa.db');
+    $result = $db->query('SELECT idempl, nomempl, email, urlfoto, baida FROM empleat NATURAL JOIN pertany WHERE fk_iddep = ' . $iddep);
+
+    $empleats = [];
+
+    while($row = $result->fetchArray()) {
+        $empleats[] = array("idempl" => $row["idempl"],
+		            "nomempl" => $row["nomempl"],
+			    "email" => $row["email"],
+			    "urlfoto" => $row["urlfoto"],
+			    "baida" => $row["baida"]);
+    }
+    return array("resultat" => true, $empleats);
 }
