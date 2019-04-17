@@ -31,5 +31,16 @@ function valida_token($usuari, $token) {
 } 
 
 function get_departaments() {
+    $db = new SQLite3('empresa.db');
+    $result = $db->query('SELECT iddep, nomdep, fk_cap, nomempl AS nomcap FROM departament NATURAL JOIN empleat');
 
+    $departaments = [];
+
+    while($row = $result->fetchArray()) {
+       $departaments[] = array("iddep" => $row["iddep"],
+		               "nomdep" => $row["nomdep"],
+			       "fk_cap" => $row["fk_cap"],
+			       "nomcap" => $row["nomcap"]);
+    }
+    return array("resultat" => true, $departaments);
 }
