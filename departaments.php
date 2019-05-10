@@ -68,7 +68,8 @@ else {
 	      }).done(function(data) {
                    $('#codigo').text("MENSAJE:" + data.responseJSON['missatge']);
               }).fail(function(data) {
-                   $('#codigo').text("MENSAJE:" + data.responseJSON['missatge']);
+		   // tenemos que autenticarnos de nuevo!
+		   window.location.replace("valida.php");
 	      });
          });
 
