@@ -37,9 +37,13 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' ) {
 else {
 ?>
 <html>
+   <head>
+      <script src="jquery-3.4.1.min.js"></script>
+      <script src="js.cookie.js"></script>
+   </head>
    <body>
       <h1>Hola</h1>
-      <form id="departamentos" action="departaments.php" method="post">
+      <form id="departamentos" action="departaments.php" method="POST">
           <button type="submit" form="departamentos" value="Submit">Obtener departamentos</button>
       </form>
       <div id="respuesta">
@@ -49,23 +53,23 @@ else {
    </body>
    <script>
       $(function() {
-          $('form.departamentos').submit(function(event) {
+          $('#departamentos').submit(function(event) {
               event.preventDefault(); // Prevent the form from submitting via the browser
+
               var form = $(this);
               $.ajax({
                   type: form.attr('method'),
                    url: form.attr('action'),
                    data: {
-                       usuari: $.cookie("usuari"),
-                       password: $.cookie("password")
-              }),
-             .done(function(data) {
-                       $('codigo').text(data['resultat']);
-                     // Optionally alert the user of success here...
-                  }).fail(function(data) {
-                    // Optionally alert the user of an error here...
-                     alert("fallo");
-             });
+                       usuari: Cookies.get("usuari"),
+                       password: Cookies.get("password")
+	           },
+		   dataType: "json"
+	      }).done(function(data) {
+                   $('#codigo').text("MENSAJE:" + data.responseJSON['missatge']);
+              }).fail(function(data) {
+                   $('#codigo').text("MENSAJE:" + data.responseJSON['missatge']);
+	      });
          });
 
       });
